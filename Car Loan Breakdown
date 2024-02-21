@@ -1,0 +1,67 @@
+import java.text.NumberFormat;
+import java.util.Scanner;
+
+class LoanPayment {
+    private double principal;
+    private double interestRate;
+    private int loanTermInMonths;
+
+    public LoanPayment(double principal, double interestRate, int loanTermInMonths) {
+        this.principal = principal;
+        this.interestRate = interestRate;
+        this.loanTermInMonths = loanTermInMonths;
+    }
+
+    public void displayPaymentSchedule() {
+        double monthlyInterestRate = interestRate / 100 / 12;
+        double monthlyPayment = calculateMonthlyPayment(principal, monthlyInterestRate, loanTermInMonths);
+
+        System.out.println("Loan Amount: $" + principal);
+        System.out.println("Annual Interest Rate: " + interestRate + "%");
+        System.out.println("Loan Term: " + loanTermInMonths + " months");
+        System.out.println("Monthly Payment: $" + monthlyPayment);
+        System.out.println("Payment Schedule:");
+
+        System.out.format("%-12s%-12s%-12s%-12s%n", "Month", "Principal", "Interest", "Balance");
+
+        double remainingBalance = principal;
+
+        for (int month = 1; month <= loanTermInMonths; month++) {
+            double interestPayment = remainingBalance * monthlyInterestRate;
+            double principalPayment = monthlyPayment - interestPayment;
+            remainingBalance -= principalPayment;
+
+            System.out.format("%-12d%-12s%-12s%-12s%n", month,
+                    formatCurrency(principalPayment), formatCurrency(interestPayment),
+                    formatCurrency(remainingBalance));
+        }
+    }
+
+    private double calculateMonthlyPayment(double principal, double monthlyInterestRate, int loanTermInMonths) {
+        return principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanTermInMonths))
+                / (Math.pow(1 + monthlyInterestRate, loanTermInMonths) - 1);
+    }
+
+    private String formatCurrency(double amount) {
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        return currencyFormat.format(amount);
+    }
+}
+
+public class CarLoanPaymentBreakdown {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter car loan amount: $");
+        double loanAmount = scanner.nextDouble();
+
+        System.out.print("Enter annual interest rate (in percentage): ");
+        double interestRate = scanner.nextDouble();
+
+        System.out.print("Enter loan term in months: ");
+        int loanTermInMonths = scanner.nextInt();
+
+        LoanPayment loanPayment = new LoanPayment(loanAmount, interestRate, loanTermInMonths);
+        loanPayment.displayPaymentSchedule();
+    }
+}
