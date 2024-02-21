@@ -1,0 +1,80 @@
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class StudentLoanPayoffSchedule2 {
+
+    public static double calculateMonthlyPayment(
+            int loanAmount, int termInYears, double interestRate) {
+
+        interestRate /= 100.0;
+        double monthlyRate = interestRate / 12.0;
+        int termInMonths = termInYears * 12;
+
+        double monthlyPayment =
+                (loanAmount * monthlyRate) /
+                        (1 - Math.pow(1 + monthlyRate, -termInMonths));
+
+        return monthlyPayment;
+    }
+
+    public static void printAmortizationSchedule(double principal, double annualInterestRate, int numYears) {
+        double interestPaid, principalPaid, newBalance;
+        double monthlyInterestRate, monthlyPayment;
+        int month;
+        int numMonths = numYears * 12;
+
+        // Output monthly payment and total payment
+        monthlyInterestRate = annualInterestRate / 12;
+        monthlyPayment = calculateMonthlyPayment((int) principal, numYears, annualInterestRate);
+        System.out.format("Monthly Payment: %8.2f%n", monthlyPayment);
+        System.out.format("Total Payment:   %8.2f%n", monthlyPayment * numYears * 12);
+
+        // Print the table header
+        printTableHeader();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+
+        for (month = 1; month <= numMonths; month++) {
+            // Compute amount paid and new balance for each payment period
+            interestPaid = principal * (monthlyInterestRate / 100);
+            principalPaid = monthlyPayment - interestPaid;
+            newBalance = principal - principalPaid;
+            cal.add(Calendar.MONTH, 1);
+            String dddate = sdf.format(cal.getTime());
+            // Output the data item
+            printScheduleItem(month, dddate, interestPaid, principalPaid, newBalance);
+
+            // Update the balance
+            principal = newBalance;
+        }
+    }
+
+    private static void printTableHeader() {
+        System.out.format("%-8s%-12s%-10s%-10s%-12s%n", "Month", "Date", "Interest", "Principal", "New Balance");
+    }
+
+    private static void printScheduleItem(int month, String dddate, double interestPaid, double principalPaid, double newBalance) {
+        System.out.format("%-8d%-12s%-10.2f%-10.2f%-12.2f%n",
+                month, dddate, interestPaid, principalPaid, newBalance);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter loan amount: ");
+        int loanAmount = scanner.nextInt();
+
+        System.out.print("Enter loan term (in years): ");
+        int termInYears = scanner.nextInt();
+
+        System.out.print("Enter interest rate: ");
+        double interestRate = scanner.nextDouble();
+
+        printAmortizationSchedule(loanAmount, interestRate, termInYears);
+    }
+}
