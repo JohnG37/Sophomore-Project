@@ -1,0 +1,41 @@
+import java.util.Scanner;
+
+public class MortgageCalculator {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter the principal amount: ");
+        double principal = input.nextDouble();
+
+        System.out.print("Enter the annual interest rate (e.g., 4.5 for 4.5%): ");
+        double annualInterestRate = input.nextDouble();
+
+        System.out.print("Enter the number of years for the loan: ");
+        int years = input.nextInt();
+
+        System.out.print("Enter the number of months for the early payoff: ");
+        int earlyPayoffMonths = input.nextInt();
+
+        double monthlyInterestRate = annualInterestRate / 12 / 100;
+        int months = years * 12;
+        double monthlyPayment = (principal * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+
+        System.out.printf("The monthly payment is: %.2f%n", monthlyPayment);
+
+        double totalPaid = monthlyPayment * months;
+        double interestPaid = totalPaid - principal;
+
+        System.out.printf("The total amount paid over %d years is: %.2f%n", years, totalPaid);
+        System.out.printf("The total interest paid is: %.2f%n", interestPaid);
+
+        if (earlyPayoffMonths > 0 && earlyPayoffMonths < months) {
+            double earlyPayoffPayment = (principal * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -earlyPayoffMonths));
+            totalPaid = earlyPayoffPayment * earlyPayoffMonths;
+            interestPaid = totalPaid - principal;
+
+            System.out.printf("The total amount paid over %d months is: %.2f%n", earlyPayoffMonths, totalPaid);
+            System.out.printf("The total interest paid is: %.2f%n", interestPaid);
+        }
+    }
+}
