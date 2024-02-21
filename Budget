@@ -1,0 +1,141 @@
+class Expense {
+    private String name;
+    private double amount;
+
+    public Expense(String name, double amount) {
+        this.name = name;
+        this.amount = amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+}
+
+class BudgetCategory {
+    private String name;
+    private List<Expense> expenses;
+
+    public BudgetCategory(String name) {
+        this.name = name;
+        this.expenses = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void addExpense(Expense expense) {
+        expenses.add(expense);
+    }
+}
+
+class Budget {
+    private List<BudgetCategory> categories;
+
+    public Budget() {
+        this.categories = new ArrayList<>();
+    }
+
+    public List<BudgetCategory> getCategories() {
+        return categories;
+    }
+
+    public void addCategory(BudgetCategory category) {
+        categories.add(category);
+    }
+}
+
+public class BudgetingProgram {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Budget budget = new Budget();
+
+        while (true) {
+            System.out.println("1. Add Category");
+            System.out.println("2. Add Expense");
+            System.out.println("3. Show Budget");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter category name: ");
+                    String categoryName = scanner.next();
+                    BudgetCategory newCategory = new BudgetCategory(categoryName);
+                    budget.addCategory(newCategory);
+                    break;
+                case 2:
+                    System.out.print("Enter category name: ");
+                    String expenseCategoryName = scanner.next();
+                    BudgetCategory expenseCategory = findCategory(budget, expenseCategoryName);
+
+                    if (expenseCategory != null) {
+                        System.out.print("Enter expense name: ");
+                        String expenseName = scanner.next();
+                        System.out.print("Enter expense amount: ");
+                        double expenseAmount = scanner.nextDouble();
+
+                        Expense newExpense = new Expense(expenseName, expenseAmount);
+                        expenseCategory.addExpense(newExpense);
+                    } else {
+                        System.out.println("Category not found.");
+                    }
+                    break;
+                case 3:
+                    showBudget(budget);
+                    break;
+                case 4:
+                    System.out.println("Exiting program.");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please choose again.");
+            }
+        }
+    }
+
+    private static void showBudget(Budget budget) {
+        System.out.println("\nBudget Overview:");
+
+        for (BudgetCategory category : budget.getCategories()) {
+            System.out.println("Category: " + category.getName());
+            System.out.println("Expenses:");
+
+            for (Expense expense : category.getExpenses()) {
+                System.out.println(" - " + expense.getName() + ": $" + expense.getAmount());
+            }
+
+            System.out.println("Total Expenses for " + category.getName() + ": $" + calculateTotalExpenses(category));
+            System.out.println();
+        }
+    }
+
+    private static double calculateTotalExpenses(BudgetCategory category) {
+        double totalExpenses = 0;
+
+        for (Expense expense : category.getExpenses()) {
+            totalExpenses += expense.getAmount();
+        }
+
+        return totalExpenses;
+    }
+
+    private static BudgetCategory findCategory(Budget budget, String categoryName) {
+        for (BudgetCategory category : budget.getCategories()) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                return category;
+            }
+        }
+        return null;
+    }
+}
