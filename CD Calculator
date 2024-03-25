@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class CDCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt user for input
+        System.out.println("Enter the principal amount (in dollars): ");
+        double principal = scanner.nextDouble();
+
+        System.out.println("Enter the annual interest rate (in percentage): ");
+        double interestRate = scanner.nextDouble();
+
+        System.out.println("Enter the maturity period (in years): ");
+        int years = scanner.nextInt();
+
+        // Calculate the interest earned
+        double interest = calculateInterest(principal, interestRate, years);
+
+        // Display the result
+        System.out.println("Interest earned after " + years + " years: $" + interest);
+
+        // Close scanner
+        scanner.close();
+    }
+
+    // Method to calculate interest earned
+    public static double calculateInterest(double principal, double interestRate, int years) {
+        // Convert annual interest rate to decimal
+        double rate = interestRate / 100.0;
+
+        // Calculate interest using simple interest formula: I = P * r * t
+        double interest = principal * rate * years;
+
+        return interest;
+    }
+}
