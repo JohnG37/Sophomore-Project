@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #d1a8a5, #ab4d46); /* Background gradient */
+}
+
+.logo {
+    margin-bottom: 50px; /* Adjust margin to center vertically */
+}
+
+.description {
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+}
+
+.description h1 {
+    color: #333;
+}
+
+.description p {
+    color: #666;
+    line-height: 1.6;
+}
+
+img {
+    display: block; /* To center the image */
+    margin: 0 auto; /* To center the image horizontally */
+    max-width: 100%;
+    height: auto;
+}
