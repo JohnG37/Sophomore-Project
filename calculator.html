@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="calculators.js"></script>
+    <title>Financial Calculator</title>
+    <link rel="stylesheet" href="style1.css">    
+</head>
+<body>
+
+    <h1>Loan Payment Calculator</h1>
+    <form id="loanForm">
+        Loan Amount: <input type="number" id="loanAmount" required><br>
+        Interest Rate (%): <input type="number" id="interestRate" step="0.01" required><br>
+        Loan Term (years): <input type="number" id="loanTerm" required><br>
+        <button type="button" onclick="calculateLoan()">Calculate</button><br>
+        Monthly Payment: <span id="monthlyPayment"></span>
+        <button type="button" onclick="resetLoan()">Reset</button>
+    </form>
+
+
+    <h1>Mortgage Affordability Calculator</h1>
+    <form id="mortgageForm">
+        Annual Income: <input type="number" id="annualIncome" required><br>
+        Monthly Debt Payments: <input type="number" id="monthlyDebtPayments" required><br>
+        Interest Rate (%): <input type="number" id="mortgageInterestRate" step="0.01" required><br>
+        Loan Term (years): <input type="number" id="mortgageLoanTerm" required><br>
+        <button type="button" onclick="calculateMortgageAffordability()">Calculate</button><br>
+        Maximum Affordable Mortgage: <span id="maxMortgage"></span>
+        <button type="button" onclick="resetMortgage()">Reset</button>
+    </form>
+
+
+    <h1>Sales Tax Calculator</h1>
+    <form id="taxForm">
+        Total Amount: <input type="number" id="totalAmount" required><br>
+        Sales Tax Rate (%): <input type="number" id="taxRate" step="0.01" required><br>
+        <button type="button" onclick="calculateTax()">Calculate</button><br>
+        Total Amount with Tax: <span id="totalWithTax"></span>
+        <button type="button" onclick="resetTax()">Reset</button>
+    </form>
+
+ 
+    <h1>Car Payment Calculator</h1>
+    <form id="carForm">
+        Total Car Price: <input type="number" id="carPrice" required><br>
+        Down Payment: <input type="number" id="carDownPayment" required><br>
+        Interest Rate (%): <input type="number" id="carInterestRate" step="0.01" required><br>
+        Loan Term (years): <input type="number" id="carLoanTerm" required><br>
+        <button type="button" onclick="calculateCarPayment()">Calculate</button><br>
+        Monthly Car Payment: <span id="monthlyCarPayment"></span>
+        <button type="button" onclick="resetCar()">Reset</button>
+    </form>
+
+   
+    <h1>Leasing Calculator</h1>
+    <form id="leasingForm">
+        Vehicle Price: <input type="number" id="leasingPrice" required><br>
+        Lease Term (months): <input type="number" id="leasingTerm" required><br>
+        Residual Value (%): <input type="number" id="leasingResidualValue" step="0.01" required><br>
+        Money Factor: <input type="number" id="leasingMoneyFactor" step="0.0001" required><br>
+        <button type="button" onclick="calculateLeasing()">Calculate</button><br>
+        Monthly Lease Payment: <span id="monthlyLeasePayment"></span>
+        <button type="button" onclick="resetLeasing()">Reset</button>
+    </form>
+
+ 
+    <h1>Mortgage Rate Calculator</h1>
+    <form id="mortgageRateForm">
+        Loan Amount: <input type="number" id="mortgageLoanAmount" required><br>
+        Monthly Payment: <input type="number" id="mortgageMonthlyPayment" required><br>
+        Loan Term (years): <input type="number" id="mortgageTerm" required><br>
+        <button type="button" onclick="calculateMortgageRate()">Calculate</button><br>
+        Mortgage Rate (%): <span id="mortgageRate"></span>
+        <button type="button" onclick="resetMortgageRate()">Reset</button>
+    </form>
+
+
+    <h1>Budget Setup Maker</h1>
+    <form id="budgetSetupForm">
+        Total Monthly Income: <input type="number" id="monthlyIncome" required><br>
+        Housing Expenses: <input type="number" id="housingExpenses" required><br>
+        Transportation Expenses: <input type="number" id="transportationExpenses" required><br>
+        Utilities Expenses: <input type="number" id="utilitiesExpenses" required><br>
+        Other Expenses: <input type="number" id="otherExpenses" required><br>
+        <button type="button" onclick="calculateBudgetSetup()">Calculate</button><br>
+        Budget Setup Summary: <span id="budgetSetupSummary"></span>
+        <button type="button" onclick="resetBudgetSetup()">Reset</button>
+    </form>
+
+  
+    <h1>Student Loan Payoff Schedule</h1>
+    <form id="studentLoanForm">
+        Loan Amount: <input type="number" id="studentLoanAmount" required><br>
+        Interest Rate (%): <input type="number" id="studentLoanInterestRate" step="0.01" required><br>
+        Loan Term (years): <input type="number" id="studentLoanTerm" required><br>
+        <button type="button" onclick="calculateStudentLoanPayoff()">Calculate</button><br>
+        Monthly Payment: <span id="studentLoanMonthlyPayment"></span><br>
+        Total Interest Paid: <span id="studentLoanTotalInterest"></span><br>
+        Payoff Date: <span id="studentLoanPayoffDate"></span>
+        <button type="button" onclick="resetStudentLoan()">Reset</button>
+    </form>
+
+    <a href="index.html">Back to Homepage</a>
+    
+</body>
+</html>
